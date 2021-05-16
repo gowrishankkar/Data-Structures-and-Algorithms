@@ -1,27 +1,94 @@
-function reverse(str){
+class Node {
+  constructor(value) {
+    (this.value = value), (this.next = null), (this.prev = null);
+  }
+}
 
-    if(!str || str.length < 2 || typeof str !== 'string'){
-        console.log('This is not a valid string ')
-        return 'This is not a valid string';
+class LinkedList {
+  constructor(value) {
+    this.head = {
+      value: value,
+      next: null,
+      prev: null,
+    };
+    this.tail = this.head;
+    this.length = 1;
+  }
+
+  append(value) {
+    const newNode = new Node(value);
+    newNode.prev = this.tail;
+    this.tail.next = newNode;
+    this.tail = newNode;
+    this.length++;
+    return this;
+  }
+
+  prepend(value) {
+    const newNode = new Node(value);
+
+    newNode.next = this.head;
+    this.head.prev = newNode;
+    this.head = newNode;
+    this.length++;
+    return this;
+  }
+
+  insert(index, value) {
+    if (index >= this.length) {
+      return this.appened(value);
+    }
+    const newNode = new Node(value);
+
+    const nodeBeforeIndexPointer = this.traversedIndex(index - 1);
+    const nodeAtIndexPointer = nodeBeforeIndexPointer.next;
+    nodeBeforeIndexPointer.next= newNode;
+    newNode.prev = nodeBeforeIndexPointer;
+    newNode.next = nodeAtIndexPointer;
+    nodeAtIndexPointer.prev = newNode;
+
+    this.length++;
+  }
+
+  remove(index) {
+    if (index >= this.length) {
+      return console.log("Nothing found at the given index");
     }
 
-    const backwards = [];
-    const itemsLength = str.length -1;
-    for(let i = itemsLength; i>=0; i--){
-        backwards.push(str[i]);
+    const nodeBeforeIndexPointer = this.traversedIndex(index - 1);
+    const nodeToRemoved = nodeBeforeIndexPointer.next;
+    nodeBeforeIndexPointer.next = nodeToRemoved.next;
+    this.length--;
+    return this.printLinkedList();
+  }
+
+  traversedIndex(index) {
+    let counter = 0;
+    let currentNode = this.head;
+    while (counter !== index) {
+      currentNode = currentNode.next;
+      counter++;
     }
-    console.log(backwards)
-    return backwards.join('')
+    return currentNode;
+  }
+
+  printLinkedList() {
+    let list = [];
+    let currentNode = this.head;
+    while (currentNode != null) {
+      list.push(currentNode.value);
+      currentNode = currentNode.next;
+    }
+
+    return list;
+  }
 }
 
-function reverse2(str){
-    return str.split('').reverse().join('')
-}
-
-function reverse3(str){
-    return [...str].reverse().join('')
-}
-
-console.log(reverse('Test String'))
-console.log(reverse2('Test String'))
-console.log(reverse3('Test String'))
+const myLinkedList = new LinkedList(11);
+myLinkedList.append(12);
+myLinkedList.append(13);
+myLinkedList.prepend(10);
+myLinkedList.insert(2, 14);
+myLinkedList.remove(2);
+console.log(myLinkedList);
+console.log(myLinkedList.printLinkedList());
