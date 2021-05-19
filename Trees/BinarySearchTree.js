@@ -14,7 +14,7 @@ class BinarySearchTree {
     insert(value){
         const newNode = new Node(value);
         if(this.root === null){
-            this.rooot = newNode
+            this.root = newNode
         } else {
             let currentNode = this.root;
             while(true){

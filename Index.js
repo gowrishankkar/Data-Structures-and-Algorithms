@@ -1,51 +1,46 @@
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.next = null;
-  }
+class Node{
+    constructor(value){
+        this.left = null;
+        this.right = null;
+        this.value = value;
+    }
 }
 
-class Queue {
-  constructor() {
-    this.first = null;
-    this.last = null;
-    this.length = 0;
-  }
-
-  peek() {
-    console.log(this, "first", this.first);
-  }
-  enqueue(value) {
-    const newNode = new Node(value);
-    if (!this.first) {
-      this.first = newNode;
-      this.last = newNode;
+class BinarySearchTree {
+    constructor(){
+        this.root = null;
     }
 
-    this.first.next = newNode;
-    this.last = newNode;
-    this.length++;
-    return this;
-  }
+    insert(value){
+       
 
-  dequeue() {
-    if (!this.first) {
-      return null;
-    }
-    if (this.first === this.last) {
-      this.last = null;
     }
 
-    const pointer = this.first;
-    this.first = this.first.next;
-    this.length--;
-    return pointer;
-  }
+    lookup(value){
+        
+    }
+
+    remove(value){
+       
+    }
 }
 
-let newQueue = new Queue();
-newQueue.enqueue(10);
-newQueue.enqueue(11);
-newQueue.enqueue(12);
-newQueue.dequeue();
-newQueue.peek();
+const tree = new BinarySearchTree();
+tree.insert(10);
+// tree.insert(10);
+// tree.insert(10);
+// tree.insert(10);
+// tree.insert(10);
+// tree.insert(10);
+// tree.insert(10);
+// tree.insert(10);
+// tree.lookup(10);
+JSON.stringify(traverse(tree.root))
+console.log('tree', JSON.stringify(traverse(tree.root)))
+function traverse(node) {
+    const tree = { value: node.value };
+    tree.left = node.left === null ? null : traverse(node.left);
+    tree.right = node.right === null ? null : traverse(node.right);
+    return tree;
+  }
+  
