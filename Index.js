@@ -1,20 +1,31 @@
-function fibIterative(num) {
-  let arr = [0, 1];
-  for (let i = 2; i < num; i++) {
-    arr.push(arr[i - 2] + arr[i - 1]);
+let user = {
+  name: "Test Name",
+  address: {
+    personal: {
+      city: "cbe",
+      area: "sullur",
+    },
+    office: {
+      city: "cbe 2",
+      area: "hopes",
+    },
+  },
+};
+
+let finalObject = {};
+let showAll = (obj, parent) => {
+  for (let key in obj) {
+    let keyName = parent+"_"+key
+    if (typeof obj[key] === 'object') {
+
+      showAll(obj[key], keyName);
+    } else {
+    
+      console.log(keyName)
+      finalObject[keyName] = obj[key]
+    }
   }
+};
 
-  return arr[n];
-}
-
-fibIterative(10);
-
-function fibRecursive(num) {
-  if (num < 2) {
-    return num;
-  }
-  console.log(num);
-  return fibRecursive(num - 1) + fibRecursive(num - 2);
-}
-
-console.log(fibRecursive(10));
+showAll(user, 'user');
+console.log(finalObject)
