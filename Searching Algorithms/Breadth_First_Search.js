@@ -161,8 +161,17 @@ class BinarySearchTree {
       }
       return this.breadthFirstSearchRecursive(queue, list)
   }
+
+
+
+
 }
 
+
+function traverseInOrder(node, list){
+    
+}
+  
 const tree = new BinarySearchTree();
 tree.insert(9);
 tree.insert(4);
